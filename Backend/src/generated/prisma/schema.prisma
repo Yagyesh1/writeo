@@ -15,18 +15,45 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  email    String @unique
-  password String
-  name     String
-  posts    Post[]
+  id             String         @id @default(uuid())
+  email          String         @unique
+  password       String
+  name           String
+  posts          Post[]
+  userPreference UserCategory[]
+  comment        Comment[]
 }
 
 model Post {
-  id        String  @id @default(uuid())
-  title     String
-  content   String
-  published Boolean @default(false)
-  authorId  String
-  author    User    @relation(fields: [authorId], references: [id])
+  id         String   @id @default(uuid())
+  title      String
+  content    String
+  published  Boolean  @default(false)
+  authorId   String
+  author     User     @relation(fields: [authorId], references: [id])
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+}
+
+model Category {
+  id          String         @id @default(cuid())
+  name        String
+  description String?
+  post        Post[]
+  user        UserCategory[]
+}
+
+model UserCategory {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+}
+
+model Comment {
+  id          String @id @default(cuid())
+  description String
+  userId      String
+  Auther      User   @relation(fields: [userId], references: [id])
 }

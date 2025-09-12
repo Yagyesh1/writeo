@@ -18,9 +18,8 @@ model User {
   email          String         @unique
   password       String
   name           String
-  // comment        UserCommentOnPost[]
   posts          Post[]
-  // userPreference UserCategory[]
+  userPreference UserCategory[]
 
 }
 
@@ -31,40 +30,30 @@ model Post {
   published  Boolean  @default(false)
   authorId   String
   categoryId Int
-  // comment    UserCommentOnPost[]
   author     User     @relation(fields: [authorId], references: [id])
-  // category   Category @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
 }
 
-// model Category {
-//   name        String
-//   description String?
-//   id          Int            @id @default(autoincrement())
-//   post        Post[]
-//   user        UserCategory[]
-// }
+model Category {
+  name        String
+  description String?
+  id          Int            @id @default(autoincrement())
+  post        Post[]
+  user        UserCategory[]
+}
 
-// model UserCategory {
-//   id         String   @id @default(cuid())
-//   userId     String
-//   categoryId Int
-//   category   Category @relation(fields: [categoryId], references: [id])
-//   user       User     @relation(fields: [userId], references: [id])
+model UserCategory {
+  id         String   @id @default(cuid())
+  userId     String
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
 
-//   @@unique([userId, categoryId])
-// }
-// model UserCommentOnPost{
-//   id  String @unique @default(cuid())
-//   userId String
-//   postId String
-//   commentId String
-//   author User @relation(fields: [userId], references: [id])
-//   post   Post @relation(fields: [postId], references: [id])
-//   comment Comment @relation(fields: [commentId], references: [id])
-// }
-// model Comment {
-//   id          String @id @default(cuid())
-//   description String
-//   userId      String
-//   comment     UserCommentOnPost[]
-// }
+  @@unique([userId, categoryId])
+}
+
+model Comment {
+  id          String @id @default(cuid())
+  description String
+  userId      String
+}

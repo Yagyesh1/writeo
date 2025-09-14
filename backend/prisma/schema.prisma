@@ -20,7 +20,7 @@ model User {
   name           String
   posts          Post[]
   userPreference UserCategory[]
-
+  comments       Comment[]
 }
 
 model Post {
@@ -32,6 +32,7 @@ model Post {
   categoryId Int
   author     User     @relation(fields: [authorId], references: [id])
   category   Category @relation(fields: [categoryId], references: [id])
+  comments     Comment[]
 }
 
 model Category {
@@ -56,4 +57,9 @@ model Comment {
   id          String @id @default(cuid())
   description String
   userId      String
+  user        User @relation(fields: [userId], references : [id])
+  postId      String
+  post        Post @relation(fields: [postId], references: [id])
+  createdAt   DateTime
+  updatedAt   DateTime
 }

@@ -4,11 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"
 import "dotenv/config";
 import z from "zod"
-const signupSchema =  z.object({
-        email : z.string().min(3,  "Username must be at least 3 characters"),
-        password: z.string().min(6, "Password must be at least 6 characters"),
-        name: z.string()
-     }) 
+import { signupSchema } from "../../validations/auth.schema";
 type SignupInput = z.infer<typeof signupSchema>;
 export const signup = async (req : Request, res : Response)=>{
     try {

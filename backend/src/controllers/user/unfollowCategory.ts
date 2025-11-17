@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { success } from "zod";
 import { PrismaClient } from "../../generated/prisma";
 
 export const unfollowCategory = async (req: Request, res: Response)=>{

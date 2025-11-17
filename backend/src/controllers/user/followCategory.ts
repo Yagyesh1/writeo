@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "../../generated/prisma";
-import { success } from "zod";
 export const followCategory = async (req: Request, res: Response)=>{
    try {
     if (!req.userId) {
@@ -11,6 +10,7 @@ export const followCategory = async (req: Request, res: Response)=>{
     const prisma = new PrismaClient();
     const isExist = await prisma.userCategory.findFirst({
         where: {
+            userId,
             categoryId
         }
     })

@@ -3,14 +3,10 @@ import { PrismaClient } from "../../generated/prisma";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
+import { loginSchema } from "../../validations/auth.schema";
 
 const prisma = new PrismaClient();
- const loginSchema = z.object({
-  email: z.email(),
-  password: z.string().min(6, "Password must be at least 6 characters long"),
-});
-
- type loginSchemaType = z.infer<typeof loginSchema>;
+type loginSchemaType = z.infer<typeof loginSchema>;
 export const login = async (req: Request, res: Response) => {
   try {
     const parsedData: loginSchemaType = loginSchema.parse(req.body);

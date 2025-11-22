@@ -1,4 +1,4 @@
- src/middleware/-- CreateTable
+--  src/middleware/-- CreateTable
 CREATE TABLE "public"."Category" (
     "name" TEXT NOT NULL,
     "description" TEXT,

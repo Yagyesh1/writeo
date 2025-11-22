@@ -3,10 +3,13 @@ import {categories} from "../src/data/categories"
 async function main(){
   try {
     const prisma = new PrismaClient()
-   await prisma.category.createMany({
+  const result = await prisma.category.createMany({
         data: categories
     })
+    console.log(result);
+    
   } catch (error) {
+    console.log(error);
     throw new Error("something went wrong while seeding the database")    
   }
 }
